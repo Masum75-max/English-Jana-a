@@ -104,6 +104,20 @@
            <h1 class="text-4xl font-bold mb-5 text-center my-8"><span class="text-sky-400">Let's</span> Learn Vocabularies</h1>
            <div id="level-container" class="flex gap-5 flex-wrap justify-center"></div>
     </section>
+<section class="w-11/12 mx-auto flex justify-center items-center ">
+   <div class="w-full max-w-md mx-auto my-6">
+  <div class="flex">
+    <input id="key"
+      type="text" 
+      placeholder="Search word..." 
+      class="input input-bordered w-full rounded-r-none focus:outline-none"
+    />
+    <button  id="search-btn" class="btn btn-primary rounded-l-none px-6">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+</div>
+</section>
 
     <section id="word-container" class="bg-slate-100 p-10 grid grid-cols-1 my-5 w-11/12 mx-auto gap-5 md:grid-cols-3">
                <div class="flex flex-col justify-center items-center col-span-full">
@@ -111,6 +125,29 @@
                   <h2 class="font-semibold text-2xl">একটি Lesson Select করুন।</h2>
                </div>
     </section>
+
+   <!-- Open the modal using ID.showModal() method -->
+<!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <span class="font-bold text-2xl">Word</span>
+   <P id="word" class="font-bold mb-3"></P>
+      <span class="font-bold text-2xl">meaning</span>
+   <P id="meaning" class="mb-2"></P>
+     <span class="font-bold text-2xl">Example</span>
+   <P id="example" class="mb-2"></P>
+     <span class="font-bold text-2xl">Synonyms</span>
+   <div id="synonyms" class="flex gap-1 mt-2">
+
+   </div>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
 
     <script src="./script/script.js"></script>
 </body>

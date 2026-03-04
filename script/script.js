@@ -75,7 +75,7 @@ card.innerHTML = `
   <p class="font-semibold">Meaning /Pronounciation</p>
   <div class="text-2xl font-medium font-bangla">${word.meaning? word.meaning:"Not Found"}/${word.pronunciation}</div>
   <div class="flex justify-between items-center">
-    <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+    <button  onClick="loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
       <i class="fa-solid fa-circle-info"></i>
     </button>
     <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
@@ -88,3 +88,88 @@ card.innerHTML = `
 wordContainer.append(card); 
     }
 }
+
+
+const loadWordDetail=async (id)=>{
+    const url=`https://openapi.programming-hero.com/api/word/${id}`;
+
+    const response=await fetch(url);
+
+    const details= await response.json();
+
+    displayDetail(details);
+}
+// id
+// : 
+// 1
+// level
+// : 
+// 3
+// meaning
+// : 
+// null
+// points
+// : 
+// 3
+// pronunciation
+// : 
+// "অবানডান্ট"
+// sentence
+// : 
+// "Water is abundant in rainy seasons."
+// synonyms
+// : 
+// []
+// word
+// : 
+// "Abundant"
+
+const displayDetail=(details)=>{
+   const detailObj=details.data;
+   const detailsViewer=document.getElementById("details-viewer")
+   const myModal=document.getElementById("my_modal_5");
+   const word=document.getElementById("word");
+   const meaning=document.getElementById("meaning");
+   const example=document.getElementById("example");
+   const synonyms=document.getElementById("synonyms");
+   
+   word.innerText=detailObj.word;
+   meaning.innerText=detailObj.meaning;
+   example.innerText=detailObj.sentence;
+
+   synonyms.innerHTML=createSyn(detailObj.synonyms);
+   myModal.showModal();
+  
+}
+
+
+const createSyn=(swords)=>{
+   
+   let btnCollection="";
+
+  for(let sword of swords){
+     btnCollection+=`<span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">${sword}</span>`
+  }
+
+  return btnCollection;
+
+}
+
+
+const searchbtn=document.getElementById("search-btn");
+
+searchbtn.addEventListener("click",async()=>{
+      const res = await fetch("https://openapi.programming-hero.com/api/words/all");
+
+      const ball= await res.json();
+
+      const all= ball.data;
+      console.log(all)
+      const key=document.getElementById("key");
+
+      const keyval=key.value;
+       const final=  all.filter(obj=>obj.word.includes(keyval)
+      
+       )
+       displayWord(final);
+ })

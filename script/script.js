@@ -31,8 +31,11 @@ function removeActv(){
     btn.classList.remove("active");
   }
 }
-
+const spinner=document.getElementById("spinner");
 const loadWord=(id)=>{
+
+  spinner.classList.remove("hidden")
+  
     fetch(`https://openapi.programming-hero.com/api/level/${id}`)
     .then(res=>res.json())
     .then(data=>{
@@ -54,6 +57,7 @@ const wordContainer = document.getElementById("word-container")
 
 wordContainer.innerHTML="";
 if(words.length===0){
+   spinner.classList.add("hidden")
   wordContainer.innerHTML=`
    <div class="flex flex-col justify-center items-center col-span-full">
                    <img src="./assets/alert-error.png" class="mx-auto">
@@ -78,7 +82,7 @@ card.innerHTML = `
     <button  onClick="loadWordDetail(${word.id})" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
       <i class="fa-solid fa-circle-info"></i>
     </button>
-    <button class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
+    <button onClick="pronounceWord('${word.word}')" class="btn bg-[#1A91FF10] hover:bg-[#1A91FF80]">
       <i class="fa-solid fa-volume-high"></i>
     </button>
   </div>
@@ -87,6 +91,7 @@ card.innerHTML = `
 
 wordContainer.append(card); 
     }
+    spinner.classList.add("hidden")
 }
 
 
@@ -173,3 +178,9 @@ searchbtn.addEventListener("click",async()=>{
        )
        displayWord(final);
  })
+
+ function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
